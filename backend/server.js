@@ -11,3 +11,13 @@ app.use(express.json());
 app.use("/todos", verifyToken, todoRouter);
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));;
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+}).on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${PORT} is already in use. Try a different port.`);
+  } else {
+    console.error('Server error:', err);
+  }
+});
