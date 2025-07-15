@@ -1,27 +1,34 @@
-// Import the `jsonwebtoken` module for verifying and creating JWTs
+// Import the jsonwebtoken library
 import jwt from 'jsonwebtoken';
 
-// Middleware function to verify the JSON Web Token (JWT)
+// Middleware to verify JWT from the Authorization header
 const verifyToken = (req, res, next) => {
-  // Extract the token from the Authorization header (if it exists)
-  const token = req.headers.authorization?.split(' ')[1];
-
-  // If no token is provided, respond with a 401 Unauthorized status
-
   try {
-    // Verify the token using the secret stored in the environment variable
+    // Get the token from the Authorization header (e.g., "Bearer <token>")
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+      return res.status(401).json({ error: 'Authorization header missing' });
+    }
+
+    const token = authHeader.split(' ')[1];
+
+    if (!token) {
+      return res.status(401).json({ error: 'Token missing' });
+    }
+
+    // Verify the token using the secret key stored in your .env file
     const decoded = jwt.verify(token, process.env.SUPABASE_JWT_SECRET);
 
-    // Attach the decoded token payload (user information) to the request object
+    // Attach decoded user info to the request for use in next middleware/routes
     req.user = decoded;
 
-    // Proceed to the next middleware or route handler
+    // Move to the next middleware or route handler
     next();
   } catch (err) {
-    // If token verification fails, respond with a 401 Unauthorized status
-    res.status(401).json({ error: 'Invalid token' });
+    console.error('JWT verification failed:', err.message);
+    return res.status(401).json({ error: 'Invalid or expired token' });
   }
 };
 
 export default verifyToken;
-//Put code here for the middleware to authenticate User requests if they have the token and check if it's a legit token
