@@ -6,19 +6,20 @@ import verifyToken from "./middleware/auth.js";
 const app = express();
 const PORT = process.env.PORT || 8081;
 
-
+// Middleware
 app.use(cors());
 app.use(express.json());
+
+// Routes
 app.use("/todos", verifyToken, todoRouter);
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));;
-
+// Single app.listen block with error handling
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-}).on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.error(`Port ${PORT} is already in use. Try a different port.`);
+  console.log(`✅ Server running on http://localhost:${PORT}`);
+}).on("error", (err) => {
+  if (err.code === "EADDRINUSE") {
+    console.error(`❌ Port ${PORT} is already in use. Try a different port.`);
   } else {
-    console.error('Server error:', err);
+    console.error("❌ Server error:", err);
   }
 });

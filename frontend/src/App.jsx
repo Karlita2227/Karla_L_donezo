@@ -1,6 +1,6 @@
 import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
 import { QueryClientProvider, QueryClient} from "@tanstack/react-query";
-import MainLayout from "./layouts/main-layout";
+import MainLayout from "./layouts/auth-layout";
 import ProtectedRoute from "./components/protected-route";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
@@ -24,8 +24,10 @@ function App() {
     <QueryClientProvider client={client}>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<RedirectToLogin />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/todos" element={<Todos />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
