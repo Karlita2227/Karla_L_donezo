@@ -42,19 +42,44 @@ const loginUser = async (values) => {
       <div className="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
 
-        {/* ✅ Pass props down to LoginForm */}
-        <LoginForm showAlert={showAlert} navigate={navigate} />
-
+        <LoginForm
+          register={register}
+          handleSubmit={handleSubmit}
+          loginUser={loginUser}
+          alert={alert}
+          showAlert={showAlert}
+        />
         <p className="mt-4 text-center text-sm">
           Don't have an account?{" "}
           <Link to="/signup" className="text-blue-500 hover:underline">
-            Sign up
+          Sign up
           </Link>
         </p>
       </div>
     </div>
   );
 }
+
+function LoginAlert({ alert, showAlert }) {
+  return (
+    <>
+      {alert.show && (
+        <div className="alert alert-error">
+          <div className="inline-flex justify-stretch items-center">
+            {alert.message}
+            <button
+              onClick={() => showAlert({ message: "", show: false })}
+              className="btn btn-ghost btn-circle"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 
 // ✅ LoginForm must be a function component — declared correctly
 function LoginForm({ showAlert, navigate }) {
@@ -111,3 +136,4 @@ function LoginForm({ showAlert, navigate }) {
     </form>
   );
 }
+
