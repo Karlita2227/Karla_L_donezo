@@ -90,10 +90,15 @@ function LoginForm({ showAlert, navigate }) {
     }
   });
 
+  console.log("Supabase client:", supabase);
+
   const loginUser = async (values) => {
+    console.log("Trying to log in with", values);
+    
     const { error } = await supabase.auth.signInWithPassword(values);
 
     if (error) {
+      console.error("Login error:", error.message);
       showAlert({
         show: true,
         message: error.message
