@@ -48,6 +48,7 @@ const loginUser = async (values) => {
           loginUser={loginUser}
           alert={alert}
           showAlert={showAlert}
+          navigate={navigate}
         />
         <p className="mt-4 text-center text-sm">
           Don't have an account?{" "}
