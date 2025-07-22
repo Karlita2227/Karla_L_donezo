@@ -80,9 +80,7 @@ function LoginAlert({ alert, showAlert }) {
   );
 }
 
-
-// ✅ LoginForm must be a function component — declared correctly
-function LoginForm({ showAlert, navigate }) {
+function LoginForm({ showAlert,navigate, alert }) {
   const { register, handleSubmit } = useForm({
     defaultValues: {
       email: "",
