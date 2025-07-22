@@ -93,7 +93,7 @@ function LoginForm({ showAlert,navigate, alert }) {
   const loginUser = async (values) => {
     console.log("Trying to log in with", values);
     
-    const { error } = await supabase.auth.signInWithPassword(values);
+    const { error, data } = await supabase.auth.signInWithPassword(values);
 
     if (error) {
       console.error("Login error:", error.message);
@@ -102,6 +102,7 @@ function LoginForm({ showAlert,navigate, alert }) {
         message: error.message
       });
     } else {
+      console.log("Login success:", data);
       navigate("/todos");
     }
   };
