@@ -8,6 +8,7 @@ import Todos from "./pages/todos";
 import { useEffect } from "react";
 
 const client = new QueryClient();
+const queryClient = useQueryClient();
 
 function RedirectToLogin() {
   const navigate = useNavigate();
