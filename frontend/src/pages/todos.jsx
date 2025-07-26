@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import getAxiosClient from "../axios-instance";
 import axios from "axios";
 
-export function Todos() {
+function Todos() {
   const modalRef = useRef();
   const queryClient = useQueryClient();
 
@@ -159,3 +159,5 @@ export function Todos() {
     </>
   )
 }
+
+export default Todos;

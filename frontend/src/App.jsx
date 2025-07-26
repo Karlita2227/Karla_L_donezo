@@ -1,14 +1,15 @@
+import { useQueryClient } from "@tanstack/react-query";
 import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
 import { QueryClientProvider, QueryClient} from "@tanstack/react-query";
 import MainLayout from "./layouts/auth-layout";
 import ProtectedRoute from "./components/protected-route";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
-import Todos from "./pages/todos";
+import Todos from "./pages/todos.jsx";
 import { useEffect } from "react";
 
 const client = new QueryClient();
-const queryClient = useQueryClient();
+// const queryClient = useQueryClient();
 
 function RedirectToLogin() {
   const navigate = useNavigate();
