@@ -2,9 +2,8 @@ import { useState, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import getAxiosClient from "../axios-instance";
-import axios from "axios";
 
-function Todos() {
+export default function Todos() {
   const modalRef = useRef();
   const queryClient = useQueryClient();
 
@@ -22,7 +21,7 @@ function Todos() {
 
       const { data } = await axiosInstance.get("http://localhost:8080/todos");
       // const { data } = await axios.get("http://localhost:8080/todos")
-
+      console.log('data', data)
       return data;
     }
   });
@@ -153,11 +152,10 @@ function Todos() {
 
   return (
     <>
+    {console.log('rendering todo')}
       <NewTodoButton />
       <TodoItemList />
       <TodoModal />
     </>
   )
 }
-
-export default Todos;

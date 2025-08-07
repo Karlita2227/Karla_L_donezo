@@ -7,6 +7,6 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 console.log("Supabase client initialized:", supabaseUrl, supabaseAnonKey ? 'key loaded' : 'key missing');
 console.log("Supabase URL:", supabaseUrl);
-console.log("Supabase Key Present:", !!supabaseAnonKey);
+console.log("Supabase Key Present:", supabaseAnonKey);
 
 export default supabase;

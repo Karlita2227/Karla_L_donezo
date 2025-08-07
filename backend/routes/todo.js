@@ -1,7 +1,6 @@
 import express from "express";
 import prisma from "../db/index.js";
-import supabase from "../db.js";
-import verifyToken from "../middleware/auth.js";
+
 
 const router = express.Router();
 
@@ -10,24 +9,13 @@ const router = express.Router();
  * Get all todos for the authenticated user
  */
 router.get("/", async (req, res) => {
-  try {
-    const todos = await prisma.todo.findMany({
-      where: {
-        userId: req.user.sub, // Only return todos that belong to the logged-in user
-      },
-    });
+  const todos = await prisma.todo.findMany()
+  console.log(todos)
 
-    res.status(200).json({
-      success: true,
-      todos,
-    });
-  } catch (err) {
-    console.error("Error fetching todos:", err);
-    res.status(500).json({
-      success: false,
-      message: "Failed to fetch todos",
-    });
-  }
+  res.status(200).json({
+    success: true,
+    todos,
+  });
 });
 
 /**
@@ -38,6 +26,7 @@ router.post("/", async (req, res) => {
   const { name, description } = req.body;
 
   try {
+    console.log(req.user.sub)
     const newTodo = await prisma.todo.create({
       data: {
         name,

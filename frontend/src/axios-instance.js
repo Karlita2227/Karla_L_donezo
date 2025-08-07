@@ -13,29 +13,32 @@
 import axios from "axios";
 import supabase from "./client";
 
+// const getAxiosClient = async () => {
+//   const currentSession = await supabase.auth.getSession();
+
+
+//   const axiosInstance = axios.create({
+//     // baseURL: "http://localhost:8080", // 👈 Your backend URL
+//     headers: {
+//       Authorization: `Bearer ${currentSession.data.session.access_token}`,
+//     }
+//   });
+
+//   return axiosInstance;
+// };
+
+// export default getAxiosClient;
+
 const getAxiosClient = async () => {
-  const {
-    data: { session },
-    error
-  } = await supabase.auth.getSession();
-
-  if (error || !session) {
-    console.error("❌ No session found or error getting session:", error);
-    throw new Error("User is not authenticated.");
-  }
-
-  const accessToken = session.access_token;
-
-  const axiosInstance = axios.create({
-    baseURL: "http://localhost:8081", // 👈 Your backend URL
+  const currentSession = await supabase.auth.getSession();
+  const { data } = await supabase.auth.getSession();
+  if (!data.session) throw new Error("No active session");
+  supabase.auth.getSession().then(console.log);
+  const instance = axios.create({
     headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json"
-    }
+      Authorization: `Bearer ${currentSession.data.session.access_token}`,
+    },
   });
-
-  return axiosInstance;
+  return instance;
 };
-
-export default getAxiosClient;
-
+export default getAxiosClient

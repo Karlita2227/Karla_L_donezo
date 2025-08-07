@@ -1,6 +1,5 @@
-import { useQueryClient } from "@tanstack/react-query";
-import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
-import { QueryClientProvider, QueryClient} from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import MainLayout from "./layouts/auth-layout";
 import ProtectedRoute from "./components/protected-route";
 import Login from "./pages/login";
@@ -15,10 +14,10 @@ function RedirectToLogin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/login")
-  }, [])
+    navigate("/login");
+  }, []);
 
-  return <></>
+  return <></>;
 }
 
 function App() {
@@ -30,12 +29,19 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/todos" element={<MainLayout />}>
-          <Route path="/todos" element={<ProtectedRoute><Todos /></ProtectedRoute>} />
-</Route>
+            <Route
+              path="/todos"
+              element={
+                <ProtectedRoute>
+                  <Todos />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
-  )
+  );
 }
 
-export default App
+export default App;
